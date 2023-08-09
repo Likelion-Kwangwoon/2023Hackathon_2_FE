@@ -5,7 +5,7 @@ export default function MainWrapper() {
   return (
     <>
       <Header />
-      <section style={{ marginTop: '100px' }}>
+      <section style={{ marginTop: '117px' }}>
         <Outlet />
       </section>
     </>
