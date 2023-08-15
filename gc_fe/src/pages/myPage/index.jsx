@@ -1,7 +1,9 @@
 import React from 'react';
-
+import * as S from './style';
 export default function MyPage() {
   return(
-    <div />
+    <div>
+      마이페이지 
+    </ div>
   );
 }
