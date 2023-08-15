@@ -1,19 +1,20 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React from 'react';
-import LoginPage from './pages/loginPage/loginPage';
-import LecturePage from './pages/lecturePage/lecturePage';
-import MainPage from './pages/mainPage/mainPage';
-import MyPage from './pages/myPage/myPage';
-import SettingPage from './pages/settingPage/settingPage';
-import RegisterPage from './pages/registerPage/registerPage';
-import Header from './components/Header/header';
-import PostingPage from './pages/postingPage/postingPage';
+import LoginPage from './pages/loginPage/index'
+import LecturePage from './pages/lecturePage/index';
+import MainPage from './pages/mainPage/index';
+import MyPage from './pages/myPage/index';
+import SettingPage from './pages/settingPage/index';
+import RegisterPage from './pages/registerPage/index';
+import MainWrapper from './layout/index';
+import PostingPage from './pages/postingPage/index';
 export default function Router () {
+  return (
   <BrowserRouter>
     <Routes>
       <Route path='/login' element={<LoginPage />} />
       <Route path='/register' element={<RegisterPage />} />
-      <Route element={<Header />}>
+      <Route element={<MainWrapper />}>
         <Route path='/' element={<MainPage />} />
         <Route path='/lecture' element={<LecturePage />} />
         <Route path='/setting' element={<SettingPage />} />
@@ -22,4 +23,5 @@ export default function Router () {
       </Route>
     </Routes>
   </BrowserRouter>
+  );
 }
