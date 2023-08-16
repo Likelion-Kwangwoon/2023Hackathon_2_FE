@@ -11,6 +11,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0 auto;
     -ms-overflow-style: none; 
     scrollbar-width: none;
+    background-color: ${(props) => props.theme.beige};
   }
 
   button {
