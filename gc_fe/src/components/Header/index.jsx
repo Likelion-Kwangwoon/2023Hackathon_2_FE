@@ -4,13 +4,15 @@ import * as S from './style';
 export default function Header() {
   return(
     <S.Wrapper>
-      <nav>
-        <S.NavUl>
-          <li><a href="/">손주</a></li>
-          <li><a href="/register">회원가입</a></li>
-          <li><a href="/login">로그인</a></li>
+      <S.NavWrap>
+        <S.NavUl> 
+          <S.NavLogo><a href="/">손주</a></S.NavLogo>
+          <S.Navli></S.Navli>
+          <S.Navli><a href="/register">회원가입</a></S.Navli>
+          <S.Navli><a href="/login">로그인</a></S.Navli>
         </S.NavUl>
-      </nav>
+      </S.NavWrap>
     </S.Wrapper>
   );
 }
+
