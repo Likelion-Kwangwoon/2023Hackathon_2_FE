@@ -8,7 +8,6 @@ export const Wrapper = styled.header`
   z-index: 10;
   top: 0;
   font-size: 40px;
-  font-weight: bold;
   justify-content: center;
   align-items: center;
   border-bottom: 0.5px solid ${(props) => props.theme.action.black}; 
@@ -33,7 +32,6 @@ export const NavUl = styled.ul`
 export const NavLogo = styled.li`
   width: 100%;
   transition: transform 0.3s ease;
-  font-weight: bolder;
   font-size:60px;
   &:hover {
     transform: scale(1.1); /* 확대 비율 설정 */

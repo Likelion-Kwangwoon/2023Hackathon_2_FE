@@ -54,7 +54,6 @@ export const CategoryButton = styled.button`
   border: 1px solid ${(props) => props.theme.action.black};
   border-radius: 25rem;
   font-size: 20px;
-  font-weight: bold;
   background-color: #E6E6E6;
 `
 export const BankingBtn = styled(CategoryButton)`

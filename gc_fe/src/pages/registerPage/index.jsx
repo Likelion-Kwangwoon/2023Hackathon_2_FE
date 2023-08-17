@@ -18,10 +18,10 @@ export default function RegisterPage() {
         .string()
         .required('유저이름을 입력해주세요.'),
     age: yup
-        .number()
-        .integer('숫자로 입력해주세요!')
-        .min(0, '최소 0세 이상 가능합니다')
-        .required('나이를 입력해주세요.'),
+      .string()
+      .test('is-number', '숫자로 입력해주세요!', (value) => !isNaN(value))
+      .min(0, '최소 0세 이상 가능합니다')
+      .required('나이를 입력해주세요.'),
     password: yup
       .string()
       .required('영문, 숫자포함 8자리를 입력해주세요.')
@@ -41,7 +41,7 @@ export default function RegisterPage() {
     // watch,
     formState: { errors },
   } = useForm({
-    mode: 'onChange',
+    mode: 'onSubmit',
     resolver: yupResolver(formSchema),
   });
 
@@ -84,54 +84,70 @@ export default function RegisterPage() {
       <h2>회원가입</h2>
       <S.RegisterForm onSubmit={handleSubmit(onSubmit)} id='registerForm'>
         <S.HeadArea>
-          <label>유저이름:</label>
-          <input
-            type="text"
-            name="username"
-            placeholder='별명을 입력해주세요!'
-            {...register('username')}
-          />
-          {errors.username && <p>{errors.username.message}</p>}
+          <S.InputWrapper>
+            <label>유저이름</label>
+            <input
+              type="text"
+              name="username"
+              placeholder='별명을 입력해주세요!'
+              {...register('username')}
+            />
+          </S.InputWrapper>
         </S.HeadArea>
         <S.BodyArea>
-          <label>연세:</label>
-          <input
-            type="string"
-            name="age"
-            placeholder='실례지만 연세를 입력해주세요!'
-            {...register('age')}
-          />
-          {errors.age && <p>{errors.age.message}</p>}
-          {/* {watchEmail && (
-            <p className={errors.email ? 'error' : 'info'}>
-              {checkEmailAvailability(watchEmail)
-                ? 'Email is available'
-                : 'Email is already taken'}
-            </p>
-          )} */}
+          <S.InputWrapper>
+            <label>연세</label>
+            <input
+              type="string"
+              name="age"
+              placeholder='실례지만 연세를 입력해주세요!'
+              {...register('age')}
+            />
+            {/* {errors.age && <p>{errors.age.message}</p>} */}
+            {/* {watchEmail && (
+              <p className={errors.email ? 'error' : 'info'}>
+                {checkEmailAvailability(watchEmail)
+                  ? 'Email is available'
+                  : 'Email is already taken'}
+              </p>
+            )} */}
+          </S.InputWrapper>
         </S.BodyArea>
         <S.BodyArea>
-          <label>비밀번호</label>
-          <input
-            type="password"
-            name="password"
-            placeholder='비밀번호를 입력해주세요!'
-            {...register('password')}
-          />
-          {errors.password && <p>{errors.password.message}</p>}
+          <S.InputWrapper>
+            <label>비밀번호</label>
+            <input
+              type="password"
+              name="password"
+              placeholder='비밀번호를 입력해주세요!'
+              {...register('password')}
+            />
+            {/* {errors.password && <p>{errors.password.message}</p>} */}
+          </S.InputWrapper>
         </S.BodyArea>
         <S.TailArea>
-          <label>비밀번호 확인:</label>
-          <input
-            type="password"
-            name="passwordConfirm"
-            placeholder='비밀번호를 확인해주세요!'
-            {...register('passwordConfirm')}
-          />
-          {errors.passwordConfirm && <p>{errors.passwordConfirm.message}</p>}
+          <S.InputWrapper>
+            <label>비밀번호 확인</label>
+            <input
+              type="password"
+              name="passwordConfirm"
+              placeholder='비밀번호를 확인해주세요!'
+              {...register('passwordConfirm')}
+            />
+            {/* {errors.passwordConfirm && <p>{errors.passwordConfirm.message}</p>} */}
+          </S.InputWrapper>
         </S.TailArea>
       </S.RegisterForm>
-      <button type="submit" form='registerForm'>가입하기</button>
+      {Object.keys(errors).length > 0 && (
+          <div>
+            <ul>
+              {Object.values(errors).map((error, index) => (
+                <li key={index}>{error.message}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      <S.RegisterBtn type="submit" form='registerForm'>가입하기</S.RegisterBtn>
     </S.RegisterWrapper>
   );
 }
