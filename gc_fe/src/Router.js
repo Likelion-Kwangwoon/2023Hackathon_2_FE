@@ -16,7 +16,7 @@ export default function Router () {
       <Route path='/register' element={<RegisterPage />} />
       <Route element={<MainWrapper />}>
         <Route path='/' element={<MainPage />} />
-        <Route path='/lecture' element={<LecturePage />} />
+        <Route path='/lecture/:postId' element={<LecturePage />} />
         <Route path='/setting' element={<SettingPage />} />
         <Route path='/my' element={<MyPage />} />
         <Route path='/posting' element={<PostingPage />} />

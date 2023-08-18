@@ -53,13 +53,11 @@ export const signUp = async (data) => {
 
 export const signIn = async (data) => {
   try {
-    const response = await axios.get(
+    const response = await axios.post(
       `${baseURL}/app/member/sign-in`,
       {
-        params: {
-          username: data.username,
-          password: data.password,
-        },
+        username: data.username,
+        password: data.password,
       },
     );
     return response.data
@@ -84,6 +82,17 @@ export const getAllLecture = async () => {
 export const lectureUpload = async(data) => {
   try {
     const response = await instanceMultipart.post(`/app/video/upload`, data);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
+
+export const getLecture = async(postID) => {
+  try {
+    const response = await axios.get(`${baseURL}/app/video/getContent/${postID}`);
 
     return response.data;
   } catch (error) {

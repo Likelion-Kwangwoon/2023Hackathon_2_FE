@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import * as S from './style';
 import { useTheme } from 'styled-components';
 import { getAllLecture } from '../../api/api';
+import { Link } from 'react-router-dom'
 export default function SearchedList({ keyword, category }) {
   const [list, setList] = useState({});
   const [error, setError] = useState('');
@@ -57,9 +58,11 @@ export default function SearchedList({ keyword, category }) {
       <S.GridWrapper>
         {Object.values(list).map(item => (
           <S.LectureContent key={item.id}>
-            <img src={item.image} alt='썸네일'/>
-            {dotGenerator}
-            <p>{item.title}</p>
+            <Link to={`/lecture/${item.id}`}>
+              <img src={item.image} alt='썸네일'/>
+              {dotGenerator}
+              <p>{item.title}</p>
+            </ Link>
           </S.LectureContent>
         ))}
       </S.GridWrapper>
