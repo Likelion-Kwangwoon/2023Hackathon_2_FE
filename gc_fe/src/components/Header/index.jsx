@@ -8,7 +8,7 @@ import { logOut } from '../../store/store';
 export default function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = useSelector((state) => state.reducer.token);
+  const token = useSelector((state) => state.token.token);
 
   const gotoMain = () => {
     navigate("/");
@@ -40,7 +40,7 @@ export default function Header() {
   const memberMenu = 
   <Fragment>
     <S.NavUl> 
-      <S.NavLogo><span onClick={gotoLogin}>손주</span></S.NavLogo>
+      <S.NavLogo><span onClick={gotoMain}>손주</span></S.NavLogo>
       <S.Navli></S.Navli>
       <S.Navli><span onClick={gotoInput}>강의 등록</span></S.Navli>
       <S.Navli><span  onClick={gotoLogOut}>로그아웃</span></S.Navli>

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import {  useNavigate }  from 'react-router-dom';
+import { lectureUpload } from '../../api/api';
 import { categories } from '../../components/Category/categories';
 import noimg from '../../assets/noimg.gif'
 import axios from 'axios';
@@ -14,6 +16,10 @@ export default function PostingPage() {
   const [videoPreview, setVideoPreview] = useState(null);
   const [imagePreview, setImagePreview] = useState(noimg);
 
+  const navigate = useNavigate()
+  const gotoMain = () => {
+    navigate("/");
+  }
   const formSchema = yup.object().shape({
     title: yup
       .string()
@@ -62,18 +68,16 @@ export default function PostingPage() {
     const formData = new FormData();
     formData.append('title', data.title);
     formData.append('category', data.category);
-    formData.append('imageFile', data.imageFile[0]);
+    formData.append('image', data.imageFile[0]);
     formData.append('description', data.description);
-    formData.append('videoFile', data.videoFile[0]);
+    formData.append('video', data.videoFile[0]);
     formData.append('content', data.content);
-
+    console.log(data.imageFile[0])
     try {
-      const response = await axios.post('/api/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log('Lecture uploaded:', response.data);
+      const response = await lectureUpload(formData);
+      console.log(response)
+      alert(response.message);
+      gotoMain()
     } catch (error) {
       console.error('Error uploading video:', error);
       setError('uploadError', {
@@ -117,7 +121,6 @@ export default function PostingPage() {
         </div>
         <div>
           <label>카테고리</label>
-          {errors.category && <p>{errors.category.message}</p>}
           <Controller
             name="category"
             control={control}
@@ -146,7 +149,6 @@ export default function PostingPage() {
             />
             <S.CustomButton>파일 선택</S.CustomButton>
           </S.FileInputContainer>
-          {errors.imageFile && <p>{errors.imageFile.message}</p>}
         </div>
         {imagePreview && (
           <div>
@@ -156,7 +158,6 @@ export default function PostingPage() {
         <div>
           <label>설명</label>
           <textarea name="description" {...register('description')} />
-          {errors.description && <p>{errors.description.message}</p>}
         </div>
         </S.FirstWrapper>
         <S.SecondWrapper>
@@ -173,7 +174,6 @@ export default function PostingPage() {
             />
             <S.CustomButton>파일 선택</S.CustomButton>
           </S.FileInputContainer>
-            {errors.videoFile && <p>{errors.videoFile.message}</p>}
           </div>
           {videoPreview && (
             <div>
@@ -188,10 +188,17 @@ export default function PostingPage() {
           <div>
             <label>내용</label>
             <textarea type="text" name="content" {...register('content')} />
-            {errors.content && <p>{errors.content.message}</p>}
           </div>
           <S.UploadBtn type="submit">등록</S.UploadBtn>
-          {errors.uploadError && <p>{errors.uploadError.message}</p>}
+          {Object.keys(errors).length > 0 && (
+          <div>
+            <ul>
+              {Object.values(errors).map((error, index) => (
+                <li key={index}>{error.message}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         </S.LastWrapper>
       </S.UploadForm>
     </S.PostWrapper>

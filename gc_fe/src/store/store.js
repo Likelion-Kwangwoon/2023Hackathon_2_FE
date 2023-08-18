@@ -13,24 +13,29 @@ import {
 export const logIn = createAction("LOGIN");
 export const logOut = createAction("LOGOUT");
 
-const initialState = { token: "" };
+const initialState = { 
+  token: "",
+  expirationTime  : "",
+};
 
 const persistConfig = {
   key: "root",
   storage,
 }
-const reducer = createReducer(initialState, (builder) => {
+const tokenReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(logIn, (state, action) => {
       state.token = action.payload
+      state.expirationTime = new Date().getTime() + 30 * 60 * 1000;
     })
     .addCase(logOut, (state) => {
       state.token = ""
+      state.expirationTime = ""
     })
 })
 
 const rootReducer = combineReducers({
-  reducer
+  token: tokenReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

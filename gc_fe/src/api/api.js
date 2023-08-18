@@ -17,7 +17,7 @@ const instanceMultipart = axios.create({
   },
 });
 
-instanceUtil.interceptors.request.use(
+instanceMultipart.interceptors.request.use(
   (config) => {
     const token = store.getState().token.token;
     const expirationTime = store.getState().token.expirationTime;
