@@ -54,31 +54,43 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
+    <S.LogInWrapper>
+      <h1><a href='/'>손주</a></h1>
       <h2>로그인</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label>유저이름:</label>
-          <input
-            type="text"
-            name="username"
-            placeholder='별명을 입력해주세요!'
-            {...register('username')}
-          />
-          {errors.username && <p>{errors.username.message}</p>}
-        </div>
-        <div>
-          <label>비밀번호</label>
-          <input
-            type="password"
-            name="password"
-            placeholder='비밀번호를 입력해주세요!'
-            {...register('password')}
-          />
-          {errors.password && <p>{errors.password.message}</p>}
-        </div>
-        <button type="submit">가입하기</button>
-      </form>
-    </div>
+      <S.LogInForm onSubmit={handleSubmit(onSubmit)} id='loginForm'>
+        <S.HeadArea>
+          <S.InputWrapper>
+            <label>유저이름:</label>
+              <input
+                type="text"
+                name="username"
+                placeholder='별명을 입력해주세요!'
+                {...register('username')}
+              />
+          </S.InputWrapper>
+        </S.HeadArea>
+        <S.TailArea>
+          <S.InputWrapper>
+            <label>비밀번호</label>
+              <input
+                type="password"
+                name="password"
+                placeholder='비밀번호를 입력해주세요!'
+                {...register('password')}
+              />
+          </S.InputWrapper>
+        </S.TailArea>
+      </S.LogInForm>
+      {Object.keys(errors).length > 0 && (
+          <div>
+            <ul>
+              {Object.values(errors).map((error, index) => (
+                <li key={index}>{error.message}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      <S.LogInBtn type="submit" form='loginForm'>로그인</S.LogInBtn>
+    </S.LogInWrapper>
   );
 }

@@ -10,6 +10,13 @@ const instanceUtil = axios.create({
   },
 });
 
+const instanceMultipart = axios.create({
+  baseURL,
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
+});
+
 instanceUtil.interceptors.request.use(
   (config) => {
     const token = store.getState().token.token;
@@ -73,3 +80,14 @@ export const getAllLecture = async () => {
     return "error";
   }
 };
+
+export const lectureUpload = async(data) => {
+  try {
+    const response = await instanceMultipart.post(`/app/video/upload`, data);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}

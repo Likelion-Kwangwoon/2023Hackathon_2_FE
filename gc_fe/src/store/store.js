@@ -13,32 +13,24 @@ import {
 export const logIn = createAction("LOGIN");
 export const logOut = createAction("LOGOUT");
 
-// const initialState = { token: "" };
+const initialState = { token: "" };
 
-const initialState = {
-  token : "",
-  expirationTime  : "",
-}
 const persistConfig = {
-  key: "token",
+  key: "root",
   storage,
-  whitelist: ["token", "date"],
-};
-
-const tokenReducer = createReducer(initialState, (builder) => {
+}
+const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(logIn, (state, action) => {
       state.token = action.payload
-      state.expirationTime = new Date().getTime() + 30 * 60 * 1000;
     })
     .addCase(logOut, (state) => {
       state.token = ""
-      state.expirationTime = ""
     })
 })
 
 const rootReducer = combineReducers({
-  token: tokenReducer,
+  reducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -51,6 +43,7 @@ const store = configureStore({
     }
   }),
 });
+
 
 export default store;
 
