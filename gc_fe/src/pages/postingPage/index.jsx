@@ -98,67 +98,75 @@ export default function PostingPage() {
   };
 
   return (
-    <div>
+    <S.PostWrapper>
       <h2>강의 등록</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label>제목:</label>
-          <input type="text" name="title" {...register('title')} />
-          {errors.title && <p>{errors.title.message}</p>}
-        </div>
-        <div>
-          <label>카테고리:</label>
-          <input type="text" name="category" {...register('category')} />
-          {errors.category && <p>{errors.category.message}</p>}
-        </div>
-        <div>
-          <label>썸네일 이미지</label>
-          <input
-            type="file"
-            name="imageFile"
-            accept="image/*"
-            onChange={handleImageFileChange}
-            {...register('imageFile')}
-          />
-          {errors.imageFile && <p>{errors.imageFile.message}</p>}
-        </div>
-        {imagePreview && (
+      <S.UploadForm onSubmit={handleSubmit(onSubmit)}>
+        <S.FormWrapper>
+          <S.FirstWrapper>
           <div>
-            <img src={imagePreview} width="300" alt='Thumbnail' />
+            <label>제목:</label>
+            <input type="text" name="title" {...register('title')} />
+            {errors.title && <p>{errors.title.message}</p>}
           </div>
-        )}
-        <div>
-          <label>설명</label>
-          <textarea name="description" {...register('description')} />
-          {errors.description && <p>{errors.description.message}</p>}
-        </div>
-        <div>
-          <label>동영상 업로드</label>
-          <input
-            type="file"
-            name="videoFile"
-            accept="video/*"
-            onChange={handleVideoFileChange}
-            {...register('videoFile')}
-          />
-          {errors.videoFile && <p>{errors.videoFile.message}</p>}
-        </div>
-        {videoPreview && (
           <div>
-            <label>미리보기</label>
-            <video width="300" controls>
-              <source src={videoPreview} type="video/mp4" />
-            </video>
+            <label>카테고리:</label>
+            <input type="text" name="category" {...register('category')} />
+            {errors.category && <p>{errors.category.message}</p>}
           </div>
-        )}
-        <div>
-          <label>내용</label>
-          <input type="text" name="content" {...register('content')} />
-          {errors.content && <p>{errors.content.message}</p>}
-        </div>
-        <button type="submit">등록</button>
-        {errors.uploadError && <p>{errors.uploadError.message}</p>}
-      </form>
-    </div>
+          <div>
+            <label>썸네일 이미지</label>
+            <input
+              type="file"
+              name="imageFile"
+              accept="image/*"
+              onChange={handleImageFileChange}
+              {...register('imageFile')}
+            />
+            {errors.imageFile && <p>{errors.imageFile.message}</p>}
+          </div>
+          {imagePreview && (
+            <div>
+              <img src={imagePreview} width="300" alt='Thumbnail' />
+            </div>
+          )}
+          <div>
+            <label>설명</label>
+            <textarea name="description" {...register('description')} />
+            {errors.description && <p>{errors.description.message}</p>}
+          </div>
+          </S.FirstWrapper>
+          <S.SecondWrapper>
+            <div>
+              <label>동영상 업로드</label>
+              <input
+                type="file"
+                name="videoFile"
+                accept="video/*"
+                onChange={handleVideoFileChange}
+                {...register('videoFile')}
+              />
+              {errors.videoFile && <p>{errors.videoFile.message}</p>}
+            </div>
+            {videoPreview && (
+              <div>
+                <label>미리보기</label>
+                <video width="300" controls>
+                  <source src={videoPreview} type="video/mp4" />
+                </video>
+              </div>
+            )}
+          </S.SecondWrapper>
+          <S.LastWrapper>
+            <div>
+              <label>내용</label>
+              <input type="text" name="content" {...register('content')} />
+              {errors.content && <p>{errors.content.message}</p>}
+            </div>
+            <button type="submit">등록</button>
+            {errors.uploadError && <p>{errors.uploadError.message}</p>}
+          </S.LastWrapper>
+        </S.FormWrapper>
+      </S.UploadForm>
+    </S.PostWrapper>
   );
 }
