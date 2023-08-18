@@ -36,7 +36,7 @@ export const NavLogo = styled.li`
   &:hover {
     transform: scale(1.1); /* 확대 비율 설정 */
   }
-  a {
+  span {
     color: ${(props) => props.theme.action.green} !important;
   }
 `

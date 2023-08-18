@@ -24,7 +24,7 @@ export default function MainPage() {
       <S.SmartPhoneBtn>스마트폰</S.SmartPhoneBtn>
       <S.SubwayBtn>지하철</S.SubwayBtn>
       <S.EcommerceBtn>쇼핑몰</S.EcommerceBtn>
-      <S.BoardBtn>자유게시판</S.BoardBtn>
+      <S.BoardBtn>기타</S.BoardBtn>
     </S.CategoryWrap>
     <SearchedList />
     </S.MainLayout>
